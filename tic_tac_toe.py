@@ -163,7 +163,7 @@ def place_symbol_on_board(board, grid_size, player):
 def another_game_select():
     while True:
         try:
-            new_game = input("Do you want to play another game ? [Y/N]:\n -> ")
+            new_game = input("\n\nDo you want to play another game ? [Y/N]:\n -> ")
 
             if new_game.upper() not in ['Y', 'N']:
                 raise ValueError
@@ -205,14 +205,13 @@ def board_print(board, grid_size):
     print('└──' + '──┴──' * grid_size + '──┘\n')
 
 
-#######################################################################################################################
+# -------------------------------------------------------------------------------------------------------------------
 
 welcome_text()
 
 SIZE_OF_GRID = select_grid_size()
 
 NUMBER_OF_PLAYERS = select_players_number()
-
 
 while True:
     gaming_board = [['' for _ in range(SIZE_OF_GRID)] for _ in range(SIZE_OF_GRID)]
@@ -224,7 +223,6 @@ while True:
     another_game = another_game_select()
 
     if another_game:
-        print("\n\n\n\n NEW GAME: \n")
         continue
     break
 
