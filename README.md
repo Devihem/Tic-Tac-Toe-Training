@@ -3,9 +3,13 @@
 📑 **About:**
 
 *This is a basic project in python for the game Tic-Tac-Toe.
-The idea of this the project is to be done with procedure programing without hardcoded indexes.
-There are some additional stuff added like  custom board size , custom players size , gaming board visualisation in terminal and option for new game. 
-For better expiriance all inputs are handaled to stay repeatitev until a proper input is recieved.*
+The idea of this the project is to be done with procedure programing without hardcoded indexes.There are some additional
+stuff added like custom board size , custom players size , gaming board visualisation in terminal and option for new
+game. For better experience all inputs are handled to stay repetitive until a proper input is received.*
+
+*Players take turns placing their tokens on the board by selecting coordinates in format Row:Col .
+If a player has a row, column, or diagonal filled with his symbol the player wins.
+If no player wins and the board is full, the game is considered a draw.*
 
 ---
 
@@ -21,7 +25,7 @@ For better expiriance all inputs are handaled to stay repeatitev until a proper 
 - Select the grid size
 - Choose how many players will participate
 - Choose players Symbol
-- Make a  row ,column or diagonal filled with your symbol
+- Make a  row, column or diagonal filled with your symbol
 
 
 
