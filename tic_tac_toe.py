@@ -53,6 +53,7 @@ def select_players_symbol(players_count):
                     raise ValueError
 
                 players_tuple = players_tuple + tuple(player_symbol)
+
                 break
 
             except ValueError:
@@ -113,6 +114,7 @@ def winner_check(board, grid_size):
             break
     else:
         winner_flag = True
+
     # Secondary diagonal - Check
     for row in range(grid_size - 1, 0, -1):
         col = grid_size - 1 - row
@@ -129,10 +131,11 @@ def winner_check(board, grid_size):
 def place_symbol_on_board(board, grid_size, player):
     board_print(board, grid_size)
     while True:
-        try:
 
+        try:
             player_pick_location = input(
-                f"Select where you want to place your Token {player} in format Row:Col !\n -> ").split(":")
+                f"Select where you want to place your Token [{player}] in format Row:Col !\n -> ").split(":")
+
             if len(player_pick_location) != 2:
                 raise ValueError
 
@@ -170,7 +173,7 @@ def another_game_select():
 
             if new_game.upper() == 'Y':
                 return 'New'
-            return ''
+            return None
 
         except ValueError:
             print("Incorrect input! [Expected Y or N]\n\n")
@@ -179,6 +182,7 @@ def another_game_select():
 
 def board_print(board, grid_size):
     list_with_indexes_top = ['']
+
     for numb in range(grid_size):
         str_numb = str(numb + 1)
         str_numb = ' ' * (4 - len(str_numb)) + str_numb
@@ -214,6 +218,7 @@ SIZE_OF_GRID = select_grid_size()
 NUMBER_OF_PLAYERS = select_players_number()
 
 while True:
+
     gaming_board = [['' for _ in range(SIZE_OF_GRID)] for _ in range(SIZE_OF_GRID)]
 
     players_order_and_symbols = select_players_symbol(NUMBER_OF_PLAYERS)
