@@ -1,3 +1,20 @@
+"""
+Project: Tic-Tac-Toe in Terminal
+File: tic_tac_toe.py
+Author: Ivaylo Stoyanov - Devihem
+
+This is a basic project in python for the game Tic-Tac-Toe.
+The idea of this the project is to be done with procedure programing without hardcoded indexes.There are some additional
+stuff added like custom board size , custom players size , gaming board visualisation in terminal and option for new
+game. For better experience all inputs are handled to stay repetitive until a proper input is received.
+
+Players take turns placing their tokens on the board by selecting coordinates in format Row:Col .
+If a player has a row, column, or diagonal filled with his symbol the player wins.
+If no player wins and the board is full, the game is considered a draw.
+
+"""
+
+
 def welcome_text():
     print("\n\n"
           "\n---------------------------------Welcome-to-my-mini-project----------------------------------"
@@ -76,10 +93,12 @@ def playing_phase(board, players, grid_size):
             winner_flag = winner_check(board, grid_size)
 
             if winner_flag:
-                return f"We have a winner ! Player with symbol {player} WIN !"
+                return (f"\n\n---------We have a winner !---------\n"
+                        f"     Player with symbol " + "\033[32m" + f"{player}" + "\033[0m" + " WIN !\n\n")
 
             elif max_moves == made_moves:
-                return "No more moves: Game is DRAW !"
+                return ("\n\nNo more moves."
+                        "\nGame is DRAW !\n\n")
 
 
 def winner_check(board, grid_size):
@@ -134,7 +153,8 @@ def place_symbol_on_board(board, grid_size, player):
 
         try:
             player_pick_location = input(
-                f"Select where you want to place your Token [{player}] in format Row:Col !\n -> ").split(":")
+                f"Select where you want to place your Token "
+                f"[" + "\033[32m" + f"{player}" + "\033[0m" + "] in format Row:Col !\n -> ").split(":")
 
             if len(player_pick_location) != 2:
                 raise ValueError
