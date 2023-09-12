@@ -15,34 +15,19 @@ If no player wins and the board is full, the game is considered a draw.
 """
 
 
-def select_grid_size():
+def user_int_input_selecting(input_text, error_text, minimum_value):
     while True:
         try:
-            grid_size = int(input("Please select Grid Size:\n-> "))
+            value_size = int(input(input_text))
 
-            if grid_size < 3:
+            if value_size < minimum_value:
                 raise ValueError
 
-        except ValueError:
-            print("Incorrect input! [Expected integer with value 3 or bigger]\n\n")
-            continue
-
-        return grid_size
-
-
-def select_players_number():
-    while True:
-        try:
-            players_number = int(input("Please select how many players will participate:\n-> "))
-
-            if players_number < 2:
-                raise ValueError
+            return value_size
 
         except ValueError:
-            print("Incorrect input! [Expected integer with value 2 or bigger]\n\n")
+            print(error_text)
             continue
-
-        return players_number
 
 
 def select_players_symbol(players_count):
@@ -75,12 +60,16 @@ def playing_phase(board, players, grid_size):
     while True:
 
         for player in players:
-            row, col = place_symbol_on_board(board, grid_size, player)
-            board[row][col] = player
-            made_moves += 1
-            winner_flag = winner_check(board, grid_size)
 
-            if winner_flag:
+            board_print(board, grid_size)
+
+            row, col = user_token_loc_selecting(grid_size, player)
+
+            board[row][col] = player
+
+            made_moves += 1
+
+            if winner_check(board, grid_size):
                 return (f"\n\n--------- We have a winner !---------\n"
                         f"     Player with symbol " + "\033[32m" + f"{player}" + "\033[0m" + " WIN !\n\n")
 
@@ -90,54 +79,28 @@ def playing_phase(board, players, grid_size):
 
 
 def winner_check(board, grid_size):
-    winner_flag = False
-
     # Rows - Check
-
-    for row in range(grid_size):
-        for col in range(grid_size - 1):
-            current_symbol = board[row][col]
-            next_symbol = board[row][col + 1]
-            if current_symbol == '' or current_symbol != next_symbol:
-                break
-        else:
-            winner_flag = True
+    for row in board:
+        if row[0] != '' and all([True if el == row[0] else False for el in row[1:]]):
+            return True
 
     # Columns - Check
     for col in range(grid_size):
-        for row in range(grid_size - 1):
-            current_symbol = board[row][col]
-            next_symbol = board[row + 1][col]
-            if current_symbol == '' or current_symbol != next_symbol:
-                break
-        else:
-            winner_flag = True
+        if board[0][col] != '' and all([True if board[0][col] == row[col] else False for row in board[1:]]):
+            return True
 
     # Primer diagonal - Check
-    for row in range(grid_size - 1):
-        col = row
-        current_symbol = board[row][col]
-        next_symbol = board[row + 1][col + 1]
-        if current_symbol == '' or current_symbol != next_symbol:
-            break
-    else:
-        winner_flag = True
+    if board[0][0] != '' and all([True if board[0][0] == board[row][row] else False for row in range(grid_size)]):
+        return True
 
     # Secondary diagonal - Check
-    for row in range(grid_size - 1, 0, -1):
-        col = grid_size - 1 - row
-        current_symbol = board[row][col]
-        next_symbol = board[row - 1][col + 1]
-        if current_symbol == '' or current_symbol != next_symbol:
-            break
-    else:
-        winner_flag = True
-
-    return winner_flag
+    if (board[0][grid_size - 1] != ''
+            and all([True if board[0][grid_size - 1] == board[row][grid_size - 1 - row] else False
+                     for row in range(grid_size)])):
+        return True
 
 
-def place_symbol_on_board(board, grid_size, player):
-    board_print(board, grid_size)
+def user_token_loc_selecting(grid_size, player):
     while True:
 
         try:
@@ -182,7 +145,6 @@ def another_game_select():
 
             if new_game.upper() == 'Y':
                 return True
-
             return False
 
         except ValueError:
@@ -237,15 +199,21 @@ if __name__ == "__main__":
 
     welcome_text()
 
-    SIZE_OF_GRID = select_grid_size()
+    SIZE_OF_GRID = user_int_input_selecting(
+        input_text="Please select Grid Size:\n-> ",
+        error_text="Incorrect input! [Expected integer with value 3 or bigger]\n\n",
+        minimum_value=3)
 
-    NUMBER_OF_PLAYERS = select_players_number()
+    NUMBER_OF_PLAYERS = user_int_input_selecting(
+        input_text="Please select how many players will participate:\n-> ",
+        error_text="Incorrect input! [Expected integer with value 2 or bigger]\n\n",
+        minimum_value=2)
 
     while True:
 
-        gaming_board = [['' for _ in range(SIZE_OF_GRID)] for __ in range(SIZE_OF_GRID)]
-
         players_order_and_symbols = select_players_symbol(NUMBER_OF_PLAYERS)
+
+        gaming_board = [['' for _ in range(SIZE_OF_GRID)] for __ in range(SIZE_OF_GRID)]
 
         print(playing_phase(gaming_board, players_order_and_symbols, SIZE_OF_GRID))
 
