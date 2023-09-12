@@ -15,18 +15,6 @@ If no player wins and the board is full, the game is considered a draw.
 """
 
 
-def welcome_text():
-    print("\n\n"
-          "\n---------------------------------Welcome-to-my-mini-project----------------------------------"
-          "\n   ______    ____   ______         ______    ___      ______         ______   ____     ______"
-          "\n  /_  __/   /  _/  / ____/        /_  __/   /   |    / ____/        /_  __/  / __ \\   / ____/"
-          "\n   / /      / /   / /              / /     / /| |   / /              / /    / / / /  / __/   "
-          "\n  / /     _/ /   / /___           / /     / ___ |  / /___           / /    / /_/ /  / /___   "
-          "\n /_/     /___/   \\____/          /_/     /_/  |_|  \\____/          /_/     \\____/  /_____/  "
-          "\n----------------------------------------------------------------------------------------------"
-          "\n\n")
-
-
 def select_grid_size():
     while True:
         try:
@@ -58,7 +46,7 @@ def select_players_number():
 
 
 def select_players_symbol(players_count):
-    players_tuple = tuple()
+    players_list = []
 
     for player_numb in range(players_count):
 
@@ -66,10 +54,10 @@ def select_players_symbol(players_count):
             try:
                 player_symbol = input(f"Player {player_numb + 1}, please select your symbol:\n-> ")
 
-                if player_symbol in players_tuple or len(player_symbol) != 1:
+                if player_symbol in players_list or len(player_symbol) != 1:
                     raise ValueError
 
-                players_tuple = players_tuple + tuple(player_symbol)
+                players_list.append(player_symbol)
 
                 break
 
@@ -77,7 +65,7 @@ def select_players_symbol(players_count):
                 print("Incorrect input! [Expected single Symbol that is not already in use from another player]\n\n")
                 continue
 
-    return players_tuple
+    return tuple(players_list)
 
 
 def playing_phase(board, players, grid_size):
@@ -93,7 +81,7 @@ def playing_phase(board, players, grid_size):
             winner_flag = winner_check(board, grid_size)
 
             if winner_flag:
-                return (f"\n\n---------We have a winner !---------\n"
+                return (f"\n\n--------- We have a winner !---------\n"
                         f"     Player with symbol " + "\033[32m" + f"{player}" + "\033[0m" + " WIN !\n\n")
 
             elif max_moves == made_moves:
@@ -105,6 +93,7 @@ def winner_check(board, grid_size):
     winner_flag = False
 
     # Rows - Check
+
     for row in range(grid_size):
         for col in range(grid_size - 1):
             current_symbol = board[row][col]
@@ -192,12 +181,26 @@ def another_game_select():
                 raise ValueError
 
             if new_game.upper() == 'Y':
-                return 'New'
-            return None
+                return True
+
+            return False
 
         except ValueError:
             print("Incorrect input! [Expected Y or N]\n\n")
             continue
+
+
+# --------------------------------------------------PRINTS-------------------------------------------------------------
+def welcome_text():
+    print("\n\n"
+          "\n---------------------------------Welcome-to-my-mini-project----------------------------------"
+          "\n   ______    ____   ______         ______    ___      ______         ______   ____     ______"
+          "\n  /_  __/   /  _/  / ____/        /_  __/   /   |    / ____/        /_  __/  / __ \\   / ____/"
+          "\n   / /      / /   / /              / /     / /| |   / /              / /    / / / /  / __/   "
+          "\n  / /     _/ /   / /___           / /     / ___ |  / /___           / /    / /_/ /  / /___   "
+          "\n /_/     /___/   \\____/          /_/     /_/  |_|  \\____/          /_/     \\____/  /_____/  "
+          "\n----------------------------------------------------------------------------------------------"
+          "\n\n")
 
 
 def board_print(board, grid_size):
@@ -230,25 +233,27 @@ def board_print(board, grid_size):
 
 
 # -------------------------------------------------------------------------------------------------------------------
+if __name__ == "__main__":
 
-welcome_text()
+    welcome_text()
 
-SIZE_OF_GRID = select_grid_size()
+    SIZE_OF_GRID = select_grid_size()
 
-NUMBER_OF_PLAYERS = select_players_number()
+    NUMBER_OF_PLAYERS = select_players_number()
 
-while True:
+    while True:
 
-    gaming_board = [['' for _ in range(SIZE_OF_GRID)] for _ in range(SIZE_OF_GRID)]
+        gaming_board = [['' for _ in range(SIZE_OF_GRID)] for __ in range(SIZE_OF_GRID)]
 
-    players_order_and_symbols = select_players_symbol(NUMBER_OF_PLAYERS)
+        players_order_and_symbols = select_players_symbol(NUMBER_OF_PLAYERS)
 
-    print(playing_phase(gaming_board, players_order_and_symbols, SIZE_OF_GRID))
+        print(playing_phase(gaming_board, players_order_and_symbols, SIZE_OF_GRID))
 
-    another_game = another_game_select()
+        if not another_game_select():
+            break
 
-    if another_game:
-        continue
-    break
+    print("Thank you for playing !")
 
-print("Thank you for playing !")
+# input from somewhere ?!?
+# Change winner check  with all()
+# Class 1 board class 2 players
