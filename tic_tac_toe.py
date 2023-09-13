@@ -6,7 +6,8 @@ Author: Ivaylo Stoyanov - Devihem
 This is a basic project in python for the game Tic-Tac-Toe.
 The idea of this the project is to be done with procedure programing without hardcoded indexes.There are some additional
 stuff added like custom board size , custom players size , gaming board visualisation in terminal and option for new
-game. For better experience all inputs are handled to stay repetitive until a proper input is received.
+game. For better experience all inputs
+ are handled to stay repetitive until a proper input is received.
 
 Players take turns placing their tokens on the board by selecting coordinates in format Row:Col .
 If a player has a row, column, or diagonal filled with his symbol the player wins.
@@ -221,7 +222,3 @@ if __name__ == "__main__":
             break
 
     print("Thank you for playing !")
-
-# input from somewhere ?!?
-# Change winner check  with all()
-# Class 1 board class 2 players
