@@ -12,7 +12,7 @@ game. For better experience all inputs are handled to stay repetitive until a pr
 If a player has a row, column, or diagonal filled with his symbol the player wins.
 If no player wins and the board is full, the game is considered a draw.*
 
-‎ ‎
+
 
 
 ⭐‎**Additional costumizations :**
@@ -31,7 +31,7 @@ If no player wins and the board is full, the game is considered a draw.*
 
 ‎ ‎
 
-🖥️  **Preview :**
+🖥️  **Preview & Link : [[ CLICK HERE](https://replit.com/@IvayloStoyanov/Tic-Tac-Toe-Terminal-Project) 🕹️ ]** 
 
 <img width="70%" align="center" alt="Tic Tac Toe Photo" src="https://raw.githubusercontent.com/Devihem/Tic-Tac-Toe-Training/master/Screenshot2.png" />
 <img width="70%" align="center" alt="Tic Tac Toe Photo" src="https://raw.githubusercontent.com/Devihem/Tic-Tac-Toe-Training/master/Screenshot1.png" />
