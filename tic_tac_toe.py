@@ -1,5 +1,5 @@
 """
-Project: Tic-Tac-Toe in Terminal
+Project: Tic-Tac-Toe-Training
 File: tic_tac_toe.py
 Author: Ivaylo Stoyanov - Devihem
 
